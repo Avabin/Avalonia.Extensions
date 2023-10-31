@@ -31,4 +31,4 @@ jobs:
       run: dotnet pack --no-build --output ./
 
     - name: Push
-      run: dotnet nuget push *.nupkg --api-key ${{secrets.GITHUB_TOKEN}} --source https://nuget.pkg.github.com/Avabin/index.json
+      run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/Avabin/index.json

@@ -7,9 +7,8 @@ using Microsoft.Extensions.Hosting;
 using ReactiveUI;
 using Splat;
 using Splat.Autofac;
-using YoloVision.UI.Infrastructure;
 
-namespace YoloVision.UI.Avalonia.Infrastructure;
+namespace Avalonia.Extensions.Hosting;
 
 public class AvaloniaAppHost : AppHost
 {
@@ -23,7 +22,6 @@ public class AvaloniaAppHost : AppHost
         var appViewLocator = new AppViewLocator();
         Locator.CurrentMutable.RegisterConstant<IViewLocator>(appViewLocator);
         
-        builder.RegisterModule<AppModule>();
         
         base.ConfigureContainer(builder);
     }
@@ -31,7 +29,7 @@ public class AvaloniaAppHost : AppHost
     protected override void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
     {
         base.ConfigureServices(ctx, services);
-        services.AddMemoryCache();
+        
     }
 
     public override async Task StartAsync(CancellationToken cancellationToken = default)

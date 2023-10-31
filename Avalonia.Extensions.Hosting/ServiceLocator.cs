@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace YoloVision.UI.Avalonia.Infrastructure;
+namespace Avalonia.Extensions.Hosting;
 
 public static class ServiceLocator
 {

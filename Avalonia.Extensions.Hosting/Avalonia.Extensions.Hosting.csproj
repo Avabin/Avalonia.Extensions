@@ -2,8 +2,27 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+
+        <PackageId>Avalonia.Extensions.Hosting</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Avabin</Authors>
+        <Product>Avalonia.Extensions.Hosting</Product>
+        <Description>This package simplifies the usage of Autofac and generic host to a few lines in Avalonia projects</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+
+        <PackageProjectUrl>https://github.com/Avabin/Avalonia.Extensions</PackageProjectUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+      <PackageReference Include="ReactiveUI" Version="19.5.1" />
+      <PackageReference Include="Splat.Autofac" Version="14.7.1" />
+    </ItemGroup>
 
 </Project>

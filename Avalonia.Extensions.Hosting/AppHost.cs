@@ -1,14 +1,18 @@
-﻿using Autofac;
+﻿using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using YoloVision.UI.ViewModels;
 
-namespace YoloVision.UI.Infrastructure;
+namespace Avalonia.Extensions.Hosting;
 
-public class AppHost
+public abstract class AppHost
 {
     private readonly Lazy<IHost> _host;
     private readonly Lazy<IHostBuilder> _builder;
@@ -47,11 +51,27 @@ public class AppHost
         builder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         builder.ConfigureContainer<ContainerBuilder>(ConfigureContainer);
         builder.ConfigureLogging(ConfigureLogging);
-        builder.ConfigureServices(ConfigureServices);
+        builder.ConfigureServices((Action<HostBuilderContext, IServiceCollection>)ConfigureServices);
         builder.ConfigureHostConfiguration(ConfigureHostConfiguration);
 
 
         return builder;
+    }
+    
+    public void AddModule<TModule>() where TModule : IModule, new()
+    {
+        Builder.ConfigureContainer<ContainerBuilder>(builder =>
+        {
+            builder.RegisterModule<TModule>();
+        });
+    }
+    
+    public void AddModule<TModule>(TModule module) where TModule : IModule
+    {
+        Builder.ConfigureContainer<ContainerBuilder>(builder =>
+        {
+            builder.RegisterModule(module);
+        });
     }
     
     public virtual async Task RunAsync(CancellationToken cancellationToken = default)
@@ -74,7 +94,7 @@ public class AppHost
     
     protected virtual void ConfigureContainer(ContainerBuilder builder)
     {
-        builder.RegisterModule<ViewModelsModule>();
+        builder.RegisterType<AppViewLocator>().AsImplementedInterfaces();
     }
     
     protected virtual void ConfigureHostConfiguration(IConfigurationBuilder builder)
@@ -118,7 +138,6 @@ public class AppHost
     {
         services.AddSingleton(ctx.HostingEnvironment.ContentRootFileProvider);
 
-        services.AddBaseServices(ctx.Configuration);
     }
 
 }

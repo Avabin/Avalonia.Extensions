@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ReactiveUI;
 
-namespace YoloVision.UI.Avalonia.Infrastructure;
+namespace Avalonia.Extensions.Hosting;
 
 public class AppViewLocator : IDataTemplate, IViewLocator
 {
